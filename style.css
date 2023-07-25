@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    background: #00131f;
+    color: #fff;
+}
+
+.container{
+    margin: 12%;
+    width: 90%;
+    max-width: 700px;
+    margin-top: 3%;
+}
+.display{
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    background: #fff;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 20px;
+    border-radius: 5px;
+}
+
+.container h1{
+    font-weight: 500;
+    font-size: 35px;
+}
+
+.container h1 span{
+    color: #af6b11;
+    border-bottom: 4px solid #af6b11;
+    padding-bottom: 7px;
+}
+
+.display img{
+    width: 30px;
+    cursor: pointer;
+}
+
+.display input{
+    border: 0;
+    outline: 0;
+    font-size: 22px;
+    font-size: 16px;
+    color: #222222;
+}
+
+.container button img{
+    width: 28px;
+    margin-right: 10px;
+}
+
+.container button{
+    border: 0;
+    outline: 0;
+    background: #af6b11;
+    color: #fff;
+    font-size: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 26px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tip{
+    margin-top: 20px;
+    font-weight: 100;
+}
+
+.tip span{
+    font-weight: 500;
+}
+
+.tip ul li i{
+    font-weight: 50;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        margin: 8%;
+    }
+
+    .container h1 {
+        font-size: 28px;
+    }
+
+    .container button {
+        font-size: 14px;
+    }
+
+     /* Adjust the width of the input for smaller mobile devices */
+     .display input {
+        width: 50%;
+        font-size: 16px;
+        color: #222222;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 5%;
+    }
+
+    .container h1 {
+        font-size: 24px;
+    }
+
+    .container button {
+        font-size: 12px;
+    }
+}
