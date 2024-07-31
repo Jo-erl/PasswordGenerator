@@ -1,74 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE-EDGE" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="keywords" content="html, css, javascript" />
-    <meta name="author" content="Joel Anang" />
-    <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="icon" href="images/favicon.png" type="image/x-icon" />
-  </head>
 
-  <body>
-<div class="container">
-    <h1>Generate a<br><span>Random Password</span></h1>
-    <p class="tip">
-        <span>Tips:</span> <ul>
-          <li><i>Click the 'Generate Password' button to get a random password.</i></li>
-          <li><i>Click the copy icon to instantly copy password to your clipboard.</i></li> 
-        </ul>  
-    </p>
-    <div class="display">
-        <input type="text" id="password" placeholder="Random Password">
-        <img src="images/copy.png" onclick="copyPassword()">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE-EDGE" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no shrink-to-fit=no" />
+  <meta name="description" content=" Password Generator" />
+  <meta name="keywords" content="html, css, javascript" />
+  <meta name="author" content="Joel Anang" />
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="icon" href="images/favicon.png" type="image/x-icon" />
+</head>
+
+<body>
+  <!--=======================================================-->
+  <div class="page-content">
+    <div class="container">
+      <h1>
+        Generate a<br /><span>Random Password</span>
+      </h1>
+      <!--=======================================================-->
+      <p class="tip">
+        <span>Tips:</span>
+      <ul>
+        <li>
+          <i>Click the 'Generate Password' button to get a random
+            password.</i>
+        </li>
+        <!--=======================================================-->
+        <li>
+          <i>Click the copy icon to instantly copy password to your
+            clipboard.</i>
+        </li>
+      </ul>
+      </p>
+      <!--=======================================================-->
+      <div class="display">
+        <input type="text" id="password" placeholder="Random Password" />
+        <img src="images/copy.png" onclick="copyPassword()" />
+      </div>
+      <!--=======================================================-->
+      <button onclick="createPassword()">
+        <img src="images/generate.png" />Generate Password
+      </button>
     </div>
-    <button onclick="createPassword()"><img src="images/generate.png">Generate Password</button>
-</div>
+    <!--=======================================================-->
+  </div>
 
-<script>
+  <!--=======================================================-->
+  <!--Footer-->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="logo">
+        <a href="https://jo-erl.github.io/joelanangportfolio/" target="_blank">Joel Anang<span>.</span></a>
+      </div>
+      <p class="copyright">
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        All rights reserved
+      </p>
+    </div>
+  </footer>
+  <!--Footer end-->
+  <!--=======================================================-->
+
+
+  <script>
     const passwordBox = document.getElementById("password");
-    const length = 12;
+    const generateBtn = document.querySelector('button');
+    const copyBtn = document.querySelector('.display img');
 
-    const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-    const number = "0123456789";
-    const symbol = "@#$%^&*()_+~|}{[]></-=";
+    const config = {
+      length: 12,
+      useUpperCase: true,
+      useLowerCase: true,
+      useNumbers: true,
+      useSymbols: true
+    };
 
-    const allChars = upperCase +lowerCase + number + symbol;
+    const charSets = {
+      upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      lowerCase: "abcdefghijklmnopqrstuvwxyz",
+      number: "0123456789",
+      symbol: "@#$%^&*()_+~|}{[]></-="
+    };
 
-    function createPassword(){
-        let password = "";
-        password += upperCase[Math.floor(Math.random() * upperCase.length)];
-        password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
-        password += number[Math.floor(Math.random() * number.length)];
-        password += symbol[Math.floor(Math.random() * symbol.length)];
-
-        while(length > password.length){
-            password += allChars[Math.floor(Math.random() * allChars.length)];
-        }
-        passwordBox.value = password;
+    function getRandomChar(charSet) {
+      return charSet[Math.floor(Math.random() * charSet.length)];
     }
 
-    function copyPassword(){
-        passwordBox.select();
-        document.execCommand("copy");
+    function shuffleString(str) {
+      return str.split('').sort(() => Math.random() - 0.5).join('');
     }
 
-</script>
-  </body>
+    function createPassword() {
+      let password = "";
+      let allChars = "";
+
+      if (config.useUpperCase) {
+        password += getRandomChar(charSets.upperCase);
+        allChars += charSets.upperCase;
+      }
+      if (config.useLowerCase) {
+        password += getRandomChar(charSets.lowerCase);
+        allChars += charSets.lowerCase;
+      }
+      if (config.useNumbers) {
+        password += getRandomChar(charSets.number);
+        allChars += charSets.number;
+      }
+      if (config.useSymbols) {
+        password += getRandomChar(charSets.symbol);
+        allChars += charSets.symbol;
+      }
+
+      while (config.length > password.length) {
+        password += getRandomChar(allChars);
+      }
+
+      password = shuffleString(password);
+      passwordBox.value = password;
+    }
+
+    function copyPassword() {
+      if (passwordBox.value) {
+        navigator.clipboard.writeText(passwordBox.value)
+          .then(() => alert("Password copied to clipboard!"))
+          .catch(err => console.error('Failed to copy: ', err));
+      } else {
+        alert("Generate a password first!");
+      }
+    }
+
+    generateBtn.addEventListener('click', createPassword);
+    copyBtn.addEventListener('click', copyPassword);
+
+    //=======================================================//
+    // Footer functionality
+    const footer = document.querySelector("footer");
+    const currentYearSpan = document.querySelector(".current-year");
+
+    // Set the current year in the footer
+    if (currentYearSpan) {
+      currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    function handleScroll() {
+      // Footer reveal animation
+      const footerRect = footer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (footerRect.bottom <= windowHeight + 100) {
+        footer.classList.add("reveal");
+      } else {
+        footer.classList.remove("reveal");
+      }
+
+      // Footer parallax effect
+      const scrollPosition = window.pageYOffset;
+      const parallaxOffset = scrollPosition * 0.3;
+      footer.style.backgroundPositionY = `${parallaxOffset}px`;
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    //=======================================================//
+  </script>
+</body>
+
 </html>
